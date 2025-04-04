@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth Quotient Calculator</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+        h2 {
+            color: #0072ff;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 2px solid #0072ff;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #0072ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #005bb5;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        .result p {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Growth Quotient Calculator</h2>
+        <input type="number" id="actualWeight" placeholder="Actual Weight (kg)">
+        <input type="number" id="standardWeight" placeholder="Standard Weight (kg)">
+        <input type="number" id="actualHeight" placeholder="Actual Height (cm)">
+        <input type="number" id="standardHeight" placeholder="Standard Height (cm)">
+        <input type="number" id="actualHead" placeholder="Actual Head Circumference (inches)">
+        <input type="number" id="standardHead" placeholder="Standard Head Circumference (cm)">
+        <button onclick="calculateGrowthQuotient()">Calculate</button>
+        <button onclick="resetFields()" style="background: #ff4d4d;">Refresh</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateGrowthQuotient() {
+            let actualWeight = parseFloat(document.getElementById("actualWeight").value);
+            let standardWeight = parseFloat(document.getElementById("standardWeight").value);
+            let actualHeight = parseFloat(document.getElementById("actualHeight").value);
+            let standardHeight = parseFloat(document.getElementById("standardHeight").value);
+            let actualHeadInches = parseFloat(document.getElementById("actualHead").value);
+            let standardHead = parseFloat(document.getElementById("standardHead").value);
+            
+            let actualHead = actualHeadInches * 2.54; // Convert inches to cm
+            
+            if (standardWeight && standardHeight && standardHead) {
+                let weightGQ = (actualWeight / standardWeight) * 100;
+                let heightGQ = (actualHeight / standardHeight) * 100;
+                let headGQ = (actualHead / standardHead) * 100;
+                let overallGQ = (weightGQ + heightGQ + headGQ) / 3;
+                
+                document.getElementById("result").innerHTML =
+                    `<p>Weight Growth Quotient: ${weightGQ.toFixed(2)}%</p>
+                     <p>Height Growth Quotient: ${heightGQ.toFixed(2)}%</p>
+                     <p>Head Circumference Growth Quotient: ${headGQ.toFixed(2)}%</p>
+                     <p><strong>Overall Growth Quotient: ${overallGQ.toFixed(2)}%</strong></p>`;
+            } else {
+                document.getElementById("result").innerHTML = "<p style='color:red;'>Please enter all values correctly.</p>";
+            }
+        }
+
+        function resetFields() {
+            document.getElementById("actualWeight").value = "";
+            document.getElementById("standardWeight").value = "";
+            document.getElementById("actualHeight").value = "";
+            document.getElementById("standardHeight").value = "";
+            document.getElementById("actualHead").value = "";
+            document.getElementById("standardHead").value = "";
+            document.getElementById("result").innerHTML = "";
+        }
+    </script>
+</body>
+</html>
